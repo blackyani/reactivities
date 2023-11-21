@@ -6,7 +6,8 @@ import { initiallActivity } from '../../../libs/activity/constants';
 import ActivityList from "./ActivityList";
 import ActivityDetails from '../details/ActivityDetails';
 import ActivityForm from '../form/ActivityForm';
-import { deleteActivity, getActivityById, postActivity, putActivityById } from '../../../libs/activity/functions';
+import { agent } from '../../../libs/activity/functions';
+import { useLoading } from "../../../hooks/useLoading";
 
 interface Props {
     activities: Activity[];
@@ -18,8 +19,9 @@ interface Props {
 }
 
 const ActivityDashboard = ({ activities, openForm, setOpenForm, activity, setActivity, updateList }: Props) => {
+    const { loading, setLoading } = useLoading(false);
     const setCurrentActivity = async (id: string) => {
-        const data = await getActivityById(id);
+        const data = await agent.activities.details(id);
         setActivity(data);
         setOpenForm(false);
     }
@@ -30,20 +32,23 @@ const ActivityDashboard = ({ activities, openForm, setOpenForm, activity, setAct
     }
 
     const handleActivityForm = async (activity: Activity) => {
-        handleCancelActivity()
+        setLoading(true);
 
         if (activity.id) {
-            await putActivityById(activity);
+            await agent.activities.update(activity);
         } else {
-            await postActivity({...activity, id: uuidv4()});
+            await agent.activities.create({...activity, id: uuidv4()});
         }
-
+        handleCancelActivity();
+        setLoading(false);
         updateList();
     }
 
     const handleDeleteActivity = async (id: string) => {
+        setLoading(true);
         if (activity.id === id) handleCancelActivity();
-        await deleteActivity(id);
+        await agent.activities.remove(id);
+        setLoading(false);
         updateList();
     }
 
@@ -55,6 +60,7 @@ const ActivityDashboard = ({ activities, openForm, setOpenForm, activity, setAct
                     activities={activities} 
                     setCurrentActivity={setCurrentActivity} 
                     deleteActivity={handleDeleteActivity}
+                    loading={loading}
                 />
             </Grid.Column>
             <Grid.Column width={6}>
@@ -69,6 +75,7 @@ const ActivityDashboard = ({ activities, openForm, setOpenForm, activity, setAct
                         activity={activity} 
                         cancelForm={() => setOpenForm(false)}
                         handleActivityForm={handleActivityForm}
+                        loading={loading}
                     /> 
                 : null}
             </Grid.Column>

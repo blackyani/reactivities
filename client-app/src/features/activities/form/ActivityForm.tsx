@@ -7,9 +7,10 @@ interface Props {
     activity: Activity;
     cancelForm: () => void;
     handleActivityForm: (activity: Activity) => void;
+    loading: boolean;
 }
 
-const ActivityForm = ({ activity: selectedActivity, cancelForm, handleActivityForm }: Props) => {
+const ActivityForm = ({ activity: selectedActivity, cancelForm, handleActivityForm, loading }: Props) => {
     
     const [activity, setActivity] = useState<Activity>(selectedActivity);
 
@@ -33,10 +34,10 @@ const ActivityForm = ({ activity: selectedActivity, cancelForm, handleActivityFo
                 <Form.Input placeholder="Title" value={activity?.title} name="title" onChange={handleInputChange} />
                 <Form.TextArea placeholder="Description" value={activity?.description} name="description" onChange={handleInputChange} />
                 <Form.Input placeholder="Category" value={activity?.category} name="category" onChange={handleInputChange} />
-                <Form.Input placeholder="Date" value={activity?.date} name="date" onChange={handleInputChange} />
+                <Form.Input placeholder="Date" type="date" value={activity?.date} name="date" onChange={handleInputChange} />
                 <Form.Input placeholder="City" value={activity?.city} name="city" onChange={handleInputChange} />
                 <Form.Input placeholder="Venue" value={activity?.venue} name="venue" onChange={handleInputChange} />
-                <Button floated="right" positive type='submit' content="Submit" />
+                <Button floated="right" loading={loading} positive type='submit' content="Submit" />
                 <Button floated="right" type='submit' content="Cancel" onClick={cancelForm} />
             </Form>
         </Segment>
