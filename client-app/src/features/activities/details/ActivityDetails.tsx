@@ -1,34 +1,35 @@
-import { Card, Image, Button } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
+import { useStore } from '../../../app/stores/store';
+import { observer } from 'mobx-react-lite';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import ActivityDetailedChat from "./ActivityDetailedChat";
+import ActivityDetailedHeader from "./ActivityDetailedHeader";
+import ActivityDetailedInfo from "./ActivityDetailedInfo";
+import ActivityDetailedSidebar from "./ActivityDetailedSidebar";
 
-import { Activity } from "../../../models/activity";
+export default observer(function ActivityDetails() {
+    const { activityStore } = useStore();
+    const { selectedActivity: activity, loadActivity, loadingInitial } = activityStore;
+    const { id } = useParams();
 
-interface Props {
-    activity: Activity;
-    cancelActivity: () => void;
-    openForm: (activity: Activity) => void;
-}
+    useEffect(() => {
+        if (id) loadActivity(id);
+    }, [id, loadActivity]);
 
-const ActivityDetails = ({activity, cancelActivity, openForm}: Props) => {
-    return ( 
-        <Card>
-            <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
-            <Card.Content>
-            <Card.Header>{activity.title}</Card.Header>
-            <Card.Meta>
-                <span>{activity.date}</span>
-            </Card.Meta>
-            <Card.Description>
-                {activity.description}
-            </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-            <Button.Group widths='2'>
-                <Button basic color="blue" content="Edit" onClick={() => openForm(activity)}/>
-                <Button basic color="grey" content="Cancel" onClick={cancelActivity}/>
-            </Button.Group>
-            </Card.Content>
-      </Card>
-    );
-}
- 
-export default ActivityDetails;
+    if (loadingInitial || !activity) return <LoadingComponent />
+
+    return (
+        <Grid>
+            <Grid.Column width='10'>
+                <ActivityDetailedHeader activity={activity} />
+                <ActivityDetailedInfo activity={activity} />
+                <ActivityDetailedChat />
+            </Grid.Column>
+            <Grid.Column width='6'>
+                <ActivityDetailedSidebar />
+            </Grid.Column>
+        </Grid>
+    )
+})

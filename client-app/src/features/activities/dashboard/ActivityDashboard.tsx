@@ -1,86 +1,29 @@
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 import { Grid } from "semantic-ui-react";
-import { v4 as uuidv4 } from 'uuid';
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { useStore } from "../../../app/stores/store";
+import ActivityFilters from "./ActivityFilters";
+import ActivityList from './ActivityList';
 
-import { Activity } from "../../../models/activity";
-import { initiallActivity } from '../../../libs/activity/constants';
-import ActivityList from "./ActivityList";
-import ActivityDetails from '../details/ActivityDetails';
-import ActivityForm from '../form/ActivityForm';
-import { agent } from '../../../libs/activity/functions';
-import { useLoading } from "../../../hooks/useLoading";
+export default observer(function ActivityDashboard() {
+    const { activityStore } = useStore();
+    const { loadActivities, activityRegistry } = activityStore;
 
-interface Props {
-    activities: Activity[];
-    activity: Activity;
-    openForm: boolean;
-    setOpenForm: (status: boolean) => void;
-    setActivity: (activity: Activity) => void;
-    updateList: () => void;
-}
+    useEffect(() => {
+        if (activityRegistry.size <= 1) loadActivities();
+    }, [loadActivities, activityRegistry.size])
 
-const ActivityDashboard = ({ activities, openForm, setOpenForm, activity, setActivity, updateList }: Props) => {
-    const { loading, setLoading } = useLoading(false);
-    const setCurrentActivity = async (id: string) => {
-        const data = await agent.activities.details(id);
-        setActivity(data);
-        setOpenForm(false);
-    }
+    if (activityStore.loadingInitial) return <LoadingComponent content='Loading app...' />
 
-    const handleCancelActivity = () => {
-        setActivity(initiallActivity);
-        setOpenForm(false);
-    }
-
-    const handleActivityForm = async (activity: Activity) => {
-        setLoading(true);
-
-        if (activity.id) {
-            await agent.activities.update(activity);
-        } else {
-            await agent.activities.create({...activity, id: uuidv4()});
-        }
-        handleCancelActivity();
-        setLoading(false);
-        updateList();
-    }
-
-    const handleDeleteActivity = async (id: string) => {
-        setLoading(true);
-        if (activity.id === id) handleCancelActivity();
-        await agent.activities.remove(id);
-        setLoading(false);
-        updateList();
-    }
-
-    
-    return ( 
+    return (
         <Grid>
-            <Grid.Column width={10}>
-                <ActivityList 
-                    activities={activities} 
-                    setCurrentActivity={setCurrentActivity} 
-                    deleteActivity={handleDeleteActivity}
-                    loading={loading}
-                />
+            <Grid.Column width='10'>
+                <ActivityList />
             </Grid.Column>
-            <Grid.Column width={6}>
-                {!openForm && activity?.id ? 
-                <ActivityDetails 
-                    activity={activity} 
-                    cancelActivity={handleCancelActivity} 
-                    openForm={() => setOpenForm(true)} 
-                /> : null}
-                {openForm ? 
-                    <ActivityForm 
-                        activity={activity} 
-                        cancelForm={() => setOpenForm(false)}
-                        handleActivityForm={handleActivityForm}
-                        loading={loading}
-                    /> 
-                : null}
+            <Grid.Column width='6'>
+                <ActivityFilters />
             </Grid.Column>
-        </Grid> 
-    );
-}
- 
-export default ActivityDashboard;
+        </Grid>
+    )
+})
