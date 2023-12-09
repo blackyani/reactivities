@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "Ok0AhkXBdVh2Fi42NWKxj/Ox5TzfHePok1GP29cP8NIqjZ9nDrpH8K59WB+IP4krfU9jer6kTXNgcLvRPFIPGQ==",
+  "dgSpecHash": "aS8q0Rfu5NpPjNKQl4czgQlgo0gxBSSHb0f9yE89kAREODis2RpI9u0uuLhSwC0p3ZfPlnPlvRM4V0P7lv78zA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ychorny\\Desktop\\DotNetFirstApp\\Reactivities\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ychorny\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ychorny\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\ychorny\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
+    "C:\\Users\\ychorny\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
+    "C:\\Users\\ychorny\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\ychorny\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
     "C:\\Users\\ychorny\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\ychorny\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

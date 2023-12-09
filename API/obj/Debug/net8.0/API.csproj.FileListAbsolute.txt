@@ -78,3 +78,6 @@ C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\API\bin\Debug\net8.0\Mediat
 C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\API\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\API\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\API\obj\Debug\net8.0\API.sourcelink.json
+C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\API\bin\Debug\net8.0\FluentValidation.dll
+C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\API\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\API\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
