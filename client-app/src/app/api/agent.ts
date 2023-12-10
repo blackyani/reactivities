@@ -27,7 +27,7 @@ axios.interceptors.response.use(async response => {
             }
             if (data.errors) {
                 throw Object.keys(data.errors).map(item => {
-                    [item] = data.errors[item]
+                    [item] = data.errors[item];
                     return item;
                 })
             }
