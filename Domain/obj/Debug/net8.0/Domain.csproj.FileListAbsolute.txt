@@ -10,3 +10,4 @@ C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\Domain\obj\Debug\net8.0\ref
 C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\Domain\obj\Debug\net8.0\Domain.pdb
 C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\Domain\obj\Debug\net8.0\ref\Domain.dll
 C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+C:\Users\ychorny\Desktop\DotNetFirstApp\Reactivities\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
