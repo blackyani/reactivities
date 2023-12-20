@@ -14,6 +14,16 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
+axios.interceptors.request.use((config) => {
+    const token = localStorage.getItem('jwt');
+
+    if (token) {
+        config.headers = { Authorization: `Bearer ${token}` }
+    }
+    return config;
+}, (error) =>  {
+    return Promise.reject(error);
+});
 axios.interceptors.response.use(async response => {
         await sleep(1000);
         return response;
@@ -53,7 +63,7 @@ axios.interceptors.response.use(async response => {
     return Promise.reject(error);
 })
 
-const requests = {
+export const requests = {
     get: <T>(url: string) => axios.get<T>(url).then(responseBody),
     post: <T>(url: string, body: {}) => axios.post<T>(url, body).then(responseBody),
     put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),

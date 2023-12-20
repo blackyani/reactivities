@@ -5,6 +5,7 @@ interface Props {
     placeholder: string
     name: string;
     label?: string
+    type?: 'text' | 'password'
 }
 export default function TextInput(props: Props) {
     const [ field, meta ] = useField(props.name)
